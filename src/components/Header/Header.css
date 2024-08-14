@@ -1,9 +1,19 @@
 .header {
     height: 34vw;
     margin: 30px auto;
-    background: url("./header_img.png") no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./header_img.png") no-repeat;
     background-size: contain;
     position: relative;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
 }
 
 .header-content {
@@ -19,9 +29,11 @@
 }
 
 .header-content h2 {
+    position: relative;
     font-weight: 500;
     color: white;
     font-size: max(4.5vw, 22px);
+    
 }
 
 .header {
