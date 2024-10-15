@@ -6,6 +6,7 @@ import { assets } from '../../assets/assets';
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState('home');
+  const [currState, setCurrState] = useState("Login");
 
   // Assume StoreContext or AuthContext provides user info
   const { getTotalCartAmount, currentUser } = useContext(StoreContext); // or AuthContext if user is managed there
@@ -31,12 +32,12 @@ const Navbar = ({ setShowLogin }) => {
       </ul>
       <div className="navbar-right">
         <img src={assets.search_icon} alt="Search" />
-        {/* <div className="navbar-search-icon">
+        <div className="navbar-search-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="Cart" />
           </Link>
           <div className={getTotalCartAmount() === 0 ? '' : 'dot'}></div>
-        </div> */}
+        </div>
 
         {/* Conditionally render the user's name or the "Sign In" button */}
         {currentUser ? (

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./LoginPopup.css";
 import { assets } from "../../../assets/assets";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";  // import the firebase config
+import { auth } from "../../../firebase";  // import the firebase config
 import { Link } from 'react-router-dom';
 
 const LoginPopup = ({ setShowLogin }) => {
