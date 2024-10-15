@@ -16,6 +16,9 @@ export default {
         lg: "1400px",
         xl: "1700px",
       },
+      colors: {
+        prishdw: '#00204A'
+      }
     },
   },
   plugins: [require("daisyui")],

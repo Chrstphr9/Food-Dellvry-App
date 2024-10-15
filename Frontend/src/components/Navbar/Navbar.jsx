@@ -1,23 +1,36 @@
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext'; // or AuthContext if you have a different context for auth
 import { assets } from '../../assets/assets';
+import { getAuth, signOut } from 'firebase/auth';
+
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState('home');
   const [currState, setCurrState] = useState("Login");
+  const navigate = useNavigate();
 
   // Assume StoreContext or AuthContext provides user info
   const { getTotalCartAmount, currentUser } = useContext(StoreContext); // or AuthContext if user is managed there
 
+  const signOutUser = async () => {
+    const auth = getAuth(); 
+signOut(auth).then(() => {
+  navigate('/'); 
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
+  };
+
   return (
     <div className="navbar">
-      <Link to="/">
+      <Link to="/home">
         <img src={assets.logo} alt="Logo" />
       </Link>
       <ul className="navbar-menu">
-        <Link to="/" onClick={() => setMenu('home')} className={menu === 'home' ? 'active' : ''}>
+        <Link to="/home" onClick={() => setMenu('home')} className={menu === 'home' ? 'active' : ''}>
           Home
         </Link>
         <a href="#explore-menu" onClick={() => setMenu('menu')} className={menu === 'menu' ? 'active' : ''}>
@@ -45,7 +58,7 @@ const Navbar = ({ setShowLogin }) => {
             <Link to="/profile">{currentUser.name}</Link>
           </div>
         ) : (
-          <button onClick={() => setShowLogin(true)}>Sign In</button>
+          <button onClick={signOutUser}>Logout</button>
         )}
       </div>
     </div>
@@ -55,39 +68,3 @@ const Navbar = ({ setShowLogin }) => {
 export default Navbar;
 
 
-// import React, { useContext, useState } from 'react'
-// import "./Navbar.css"
-
-    
-// import { Link } from 'react-router-dom'
-// import { StoreContext } from '../../context/StoreContext'
-// import { assets } from '../../assets/assets'
-
-// const Navbar = ({setShowLogin}) => {
-
-//   const [menu, setMenu] = useState("home")
-
-//   const {getTotalCartAmount} =useContext(StoreContext)
-
-//   return (
-//     <div className='navbar'>
-//        <Link to="/"><img src={assets.logo} alt="" /></Link>
-//         <ul className='navbar-menu'>
-//             <Link to="/" onClick={()=>setMenu("home")} className={menu === "home"?"active":""}>Home</Link>
-//             <a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu === "menu"? "active":""}>Menu</a>
-//             <a href='#app-download' onClick={()=>setMenu("mobile-app")} className={menu === "mobile-app"? "active":""}>Mobile App</a>
-//             <a href='#footer' onClick={()=>setMenu("contact")} className={menu === "contact-us"? "active":""}>Contact Us</a>
-//         </ul>
-//         <div className="navbar-right">
-//             <img src={assets.search_icon} alt="" />
-//             <div className="navbar-search-icon">
-//                <Link to="/cart"><img src={assets.basket_icon} alt="" /></Link>
-//                 <div className={getTotalCartAmount()===0?"":"dot"}></div>
-//             </div>
-//             <button onClick={()=>setShowLogin(true)}>Sign In</button>
-//         </div>
-//     </div>
-//   )
-// }
-
-// export default Navbar 

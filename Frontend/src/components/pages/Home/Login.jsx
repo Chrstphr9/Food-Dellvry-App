@@ -35,11 +35,11 @@ const Login = () => {
     }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-base-200  max-w">
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
       <h1 className="text-5xl font-bold">Login now!</h1>
-      <p className="py-6">Unleash cinematic gems at your fingertips! Our app crafts personalized movie suggestions for an immersive and tailored entertainment experience. Elevate your film journey with us</p>
+      <p className="py-6">A food delivery app is a convenient platform that connects users with a variety of local restaurants and eateries, allowing them to browse menus, place orders, and have meals delivered straight to their doorstep.</p>
     </div>
     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <form className="card-body" onSubmit={handleLogin}>
@@ -59,7 +59,7 @@ const Login = () => {
           </label>
         </div>
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" className="btn  bg-orange-500 text-white hover:bg-orange-600">Login</button>
           {error && <p className="text-red-500">Something went wrong</p>}
         </div>
         <div className="text-center mt-4">
