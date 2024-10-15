@@ -27,7 +27,7 @@ const Login = () => {
         // Signed up 
         const user = userCredential.user;  
         dispatch({type:"LOGIN", payload:user})
-        navigate("/")
+        navigate("/home")
         // ...
       })
       .catch((error) => {
@@ -66,7 +66,7 @@ const Login = () => {
         </div>
         <div className="text-center mt-4">
           <p className="text-sm">
-            Already have an account? <Link to="/login" className="link link-hover">Login here</Link>.
+            Already have an account? <Link to="/" className="link link-hover">Login here</Link>.
           </p>
         </div>
       </form>

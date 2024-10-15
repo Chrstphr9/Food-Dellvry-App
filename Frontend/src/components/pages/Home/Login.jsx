@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"
+import { auth } from "../../../firebase"
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 
@@ -25,7 +25,7 @@ const Login = () => {
         // Signed up 
         const user = userCredential.user;  
         dispatch({type:"LOGIN", payload:user})
-        navigate("/")
+        navigate("/home")
         // ...
       })
       .catch((error) => {
