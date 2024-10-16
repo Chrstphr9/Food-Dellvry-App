@@ -6,9 +6,8 @@ import { assets } from '../../assets/assets';
 import { getAuth, signOut } from 'firebase/auth';
 
 
-const Navbar = ({ setShowLogin }) => {
+const Navbar = () => {
   const [menu, setMenu] = useState('home');
-  const [currState, setCurrState] = useState("Login");
   const navigate = useNavigate();
 
   // Assume StoreContext or AuthContext provides user info
@@ -17,7 +16,7 @@ const Navbar = ({ setShowLogin }) => {
   const signOutUser = async () => {
     const auth = getAuth(); 
 signOut(auth).then(() => {
-  navigate('/'); 
+  navigate('/',{replace: true}); 
   // Sign-out successful.
 }).catch((error) => {
   // An error happened.

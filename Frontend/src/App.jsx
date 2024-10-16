@@ -5,6 +5,7 @@ import Cart from "./components/pages/Cart/Cart"
 import Home from './components/pages/Home/Home'
 import Signup from './components/pages/SignUp/SignUp'
 import Login from './components/pages/Home/Login'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const App = () => { 
 
@@ -18,9 +19,9 @@ const App = () => {
     
         <Routes> 
           
-          <Route path='/signup' element={<Signup />} /> 
+          <Route path='/signup' element={<Signup/>} /> 
           <Route path='/' element={<Login />} />
-          <Route path='/home' element={<Home />} /> 
+          <Route path='/home' element={<ProtectedRoute> <Home /> </ProtectedRoute>} /> 
           <Route path='/cart' element={<Cart />} /> 
           <Route path='/order' element={<Placeorder />} />
         </Routes>
