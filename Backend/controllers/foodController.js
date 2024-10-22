@@ -3,8 +3,28 @@ import fs from 'fs'
 
 // add food item
 
-const addFood = async (req,res) => {
-
+const addFood = async (req, res) => {
+    // Use req.file for image and req.body for form data
+    const { name, description, category } = req.body;
+    const price = Number(req.body.price); // Convert price to a number
+    const image_filename = req.file?.filename || ''; // Handle missing file
+  
+    const food = new foodModel({
+      name,
+      description,
+      price, // Ensure price is a number
+      category,
+      image: image_filename
+    });
+  
+    try {
+        await food.save();
+        res.json({success:true, messgae:"Food Added"})
+    } catch (error) {
+        console.log(error);
+        res.json({success:false, message:"Error"})
+        
+    }
 }
 
 export {addFood}
