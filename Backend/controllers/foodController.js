@@ -27,4 +27,6 @@ const addFood = async (req, res) => {
     }
 }
 
+//all food list
+
 export {addFood}
