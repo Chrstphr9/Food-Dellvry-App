@@ -9,7 +9,7 @@ const Add = () => {
         name:"",
         desc:"",
         price:"",
-        category:'Salad'
+        category:"Salad"
 
     })
     
@@ -26,9 +26,10 @@ const Add = () => {
     
 
   return (
-    <div>
         <div className="add">
             <form className="flex-col">
+
+
                 <div className="add-img-upload flex-col">
                     <p>Upload Image</p>
                     <label htmlFor="image">
@@ -36,20 +37,26 @@ const Add = () => {
                     </label>
                     <input onChange={(e)=>setImage(e.target.files[0])} type="file" id='image' hidden required />
                 </div>
+
+
                 <div className="add-product-name flex-col">
                     <p>Product Name</p>
                     <input onChange={onChangeHandler} value={data.name}  type="text" name='name' placeholder='Type here' />
                 </div>
+
+
                 <div className="add-prod-desc flex-col">
                     <p>Product Dectiption</p>
                     <textarea onChange={onChangeHandler} value={data.desc} name="desc" row="6" placeholder='Write content here' required>
 
                     </textarea>
                 </div>
+
+                
                 <div className="add-category-price">
                     <div className="add-category flex-col">
                         <p>Product Category</p>
-                        <select name="category">
+                        <select onChange={onChangeHandler} name="category">
                             <option value="Salad">Salad</option> 
                             <option value="Rolls">Rolls</option>
                             <option value="Desert">Desert</option>
@@ -60,6 +67,8 @@ const Add = () => {
                             <option value="Noodles">Noodles</option>
                         </select>
                     </div>
+
+
                     <div className="add-price flex-col">
                         <p>Product Price</p>
                         <input onChange={onChangeHandler} value={data.price} type="Number" name="price" placeholder='$20'/>
@@ -68,7 +77,6 @@ const Add = () => {
                 <button type='submit' className='add-btn'>ADD</button>
             </form>
         </div>
-    </div>
   )
 }
 
