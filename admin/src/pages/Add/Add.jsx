@@ -1,11 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Add.css'
 import { assets } from '../../assets/assets'
 
 const Add = () => {
 
-    const [image, setImage] = useState(false)
+    const [image, setImage] = useState(false);
+    const [data, setData] = useState({
+        name:"",
+        desc:"",
+        price:"",
+        category:'Salad'
 
+    })
+    
+    const onChangeHandler = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setData(data=>({...data,[name]:value}))
+    }
+
+    useEffect(() => {
+      console.log(data);
+      
+    }, [data])
+    
 
   return (
     <div>
@@ -20,11 +38,13 @@ const Add = () => {
                 </div>
                 <div className="add-product-name flex-col">
                     <p>Product Name</p>
-                    <input type="text" name='name' placeholder='Type here' />
+                    <input onChange={onChangeHandler} value={data.name}  type="text" name='name' placeholder='Type here' />
                 </div>
                 <div className="add-prod-desc flex-col">
                     <p>Product Dectiption</p>
-                    <textarea name="description" row="6" placeholder='Write content here' required></textarea>
+                    <textarea onChange={onChangeHandler} value={data.desc} name="desc" row="6" placeholder='Write content here' required>
+
+                    </textarea>
                 </div>
                 <div className="add-category-price">
                     <div className="add-category flex-col">
@@ -42,7 +62,7 @@ const Add = () => {
                     </div>
                     <div className="add-price flex-col">
                         <p>Product Price</p>
-                        <input type="Number" name="price" placeholder='$20'/>
+                        <input onChange={onChangeHandler} value={data.price} type="Number" name="price" placeholder='$20'/>
                     </div>
                 </div>
                 <button type='submit' className='add-btn'>ADD</button>
