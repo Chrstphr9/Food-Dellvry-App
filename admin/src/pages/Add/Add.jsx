@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Add.css'
 import { assets } from '../../assets/assets'
+import axios from 'axios'
 
 const Add = () => {
-
+    const url = "http://localhost:4000";
     const [image, setImage] = useState(false);
     const [data, setData] = useState({
         name:"",
-        desc:"",
+        description:"",
         price:"",
         category:"Salad"
 
@@ -19,15 +20,36 @@ const Add = () => {
         setData(data=>({...data,[name]:value}))
     }
 
-    useEffect(() => {
-      console.log(data);
-      
-    }, [data])
-    
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("name",data.name)
+        formData.append("description",data.description)
+        formData.append("price",Number(data.price))
+        formData.append("category",data.category)
+        formData.append("image",image)
+        const response = await axios.post(`${url}/api/food/add`, formData, )
+        if (response.data.success) {
+            setData(
+                {
+                    name:"",
+                    description:"",
+                    price:"",
+                    category:"Salad"
+            
+                }
+            )
+            setImage(false)
+        }
+        else {
+
+        }
+    }
+
 
   return (
         <div className="add">
-            <form className="flex-col">
+            <form className="flex-col" onSubmit={onSubmitHandler}>
 
 
                 <div className="add-img-upload flex-col">
@@ -46,8 +68,8 @@ const Add = () => {
 
 
                 <div className="add-prod-desc flex-col">
-                    <p>Product Dectiption</p>
-                    <textarea onChange={onChangeHandler} value={data.desc} name="desc" row="6" placeholder='Write content here' required>
+                    <p>Product Description</p>
+                    <textarea onChange={onChangeHandler} value={data.description} name="description" row="6" placeholder='Write content here' required>
 
                     </textarea>
                 </div>

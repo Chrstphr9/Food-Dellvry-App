@@ -15,11 +15,11 @@
     width: 120px;
 }
 
-.add-product-name, .add-prod-desc {
+.add-product-name, .add-prod-description {
     width: max(40%, 280px);
 }
 
-.add-product-name input, .add-prod-desc textarea {
+.add-product-name input, .add-prod-description textarea {
     padding: 10px;
 }
 
