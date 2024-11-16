@@ -4,18 +4,25 @@ import fs from 'fs'
 // add food item
 
 const addFood = async (req, res) => {
-    // Use req.file for image and req.body for form data
-    const { name, description, category } = req.body;
-    const price = Number(req.body.price); // Convert price to a number
-    const image_filename = req.file?.filename || ''; // Handle missing file
-  
+    const { name, description, category, price } = req.body; // Destructure price from req.body
+    const image_filename = req.file?.filename || ''; // Handle missing file gracefully
+
+    // Ensure price is converted to a number
+    const numericPrice = parseFloat(price);
+
+    // Validate the numericPrice
+    if (isNaN(numericPrice)) {
+        return res.status(400).json({ success: false, message: "Invalid price format. Must be a number." });
+    }
+
     const food = new foodModel({
-      name,
-      description,
-      price, // Ensure price is a number
-      category,
-      image: image_filename
+        name,
+        description,
+        price: numericPrice, // Store the numeric value
+        category,
+        image: image_filename
     });
+
   
     try {
         await food.save();
