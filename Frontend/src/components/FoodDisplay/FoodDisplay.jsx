@@ -8,6 +8,8 @@ const FoodDisplay = ({ category }) => {
 
   const filteredFoodList = food_list.filter(item => category === "All" || category === item.category)
 
+  
+
   return (
     <div className='food-display' id='food-display'>
       <h2>Top Dishes Near You</h2>
