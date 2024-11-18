@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext"; // or AuthContext if you have a different context for auth
 import { assets } from "../../assets/assets";
 import { getAuth, signOut } from "firebase/auth";
 
-const Navbar = () => {
+const Navbar = ({setShowLogin}) => {
   const [menu, setMenu] = useState("home");
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <Link to="/home">
+      <Link to="/">
         <img src={assets.logo} alt="Logo" />
       </Link>
       <ul className="navbar-menu">
@@ -67,8 +67,8 @@ const Navbar = () => {
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-
-        {/* Conditionally render the user's name or the "Sign In" button */}
+       <button onClick={()=>setShowLogin(true)}>Sign In</button>
+        {/* Conditionally render the user's name or the "Sign In" button
         {currentUser ? (
           <div className="user-info">
             <Link to="/profile">{currentUser.name}</Link>
@@ -83,8 +83,8 @@ const Navbar = () => {
             <li onClick={signOutUser}><img src={assets.logout_icon} alt="" /><p>Logout</p></li> 
             </ul>
           </div>
-          // <button onClick={signOutUser}>Logout</button>
-        )}
+          
+        )} */}
       </div>
     </div>
   );
