@@ -3,7 +3,6 @@ import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext"; // or AuthContext if you have a different context for auth
 import { assets } from "../../assets/assets";
-import { getAuth, signOut } from "firebase/auth";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
@@ -11,18 +10,13 @@ const Navbar = ({ setShowLogin }) => {
 
   // Assume StoreContext or AuthContext provides user info
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext); // or AuthContext if user is managed there
+  
 
-  const signOutUser = async () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        navigate("/", { replace: true });
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
+  const logout = () => {
+    localStorage.removeItem("token"); 
+    setToken("")
+    navigate("/")
+  }
 
   return (
     <div className="navbar">
@@ -78,7 +72,7 @@ const Navbar = ({ setShowLogin }) => {
                 <p>Orders</p>
               </li>
               <hr />
-              <li onClick={signOutUser}>
+              <li onClick={logout}>
                 <img src={assets.logout_icon} alt="" />
                 <p>Logout</p>
               </li>
