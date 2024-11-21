@@ -5,12 +5,12 @@ import { StoreContext } from "../../context/StoreContext"; // or AuthContext if 
 import { assets } from "../../assets/assets";
 import { getAuth, signOut } from "firebase/auth";
 
-const Navbar = ({setShowLogin}) => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const navigate = useNavigate();
 
   // Assume StoreContext or AuthContext provides user info
-  const { getTotalCartAmount, currentUser } = useContext(StoreContext); // or AuthContext if user is managed there
+  const { getTotalCartAmount, token, setToken } = useContext(StoreContext); // or AuthContext if user is managed there
 
   const signOutUser = async () => {
     const auth = getAuth();
@@ -67,24 +67,24 @@ const Navbar = ({setShowLogin}) => {
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-       <button onClick={()=>setShowLogin(true)}>Sign In</button>
-        {/* Conditionally render the user's name or the "Sign In" button
-        {currentUser ? (
-          <div className="user-info">
-            <Link to="/profile">{currentUser.name}</Link>
-          </div>
-           
+        {!token ? (
+          <button onClick={() => setShowLogin(true)}>Sign In</button>
         ) : (
           <div className="nav-profile">
             <img src={assets.profile_icon} alt="" />
             <ul className="nav-profile-dropdown">
-            <li><img src={assets.bag_icon} alt="" /><p>Orders</p></li>
-            <hr />
-            <li onClick={signOutUser}><img src={assets.logout_icon} alt="" /><p>Logout</p></li> 
+              <li>
+                <img src={assets.bag_icon} alt="" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={signOutUser}>
+                <img src={assets.logout_icon} alt="" />
+                <p>Logout</p>
+              </li>
             </ul>
           </div>
-          
-        )} */}
+        )}
       </div>
     </div>
   );
