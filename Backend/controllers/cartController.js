@@ -6,7 +6,7 @@ const addToCart = async(req,res) => {
 }
 
 // Remove item from user cart
-const removefromCart  = async(req,res) => {
+const removeFromCart  = async(req,res) => {
 
 }
 
@@ -15,4 +15,4 @@ const getCart = async (req,res) => {
 
 }
 
-export {addToCart, removefromCart, getCart}
+export {addToCart, removeFromCart, getCart}
