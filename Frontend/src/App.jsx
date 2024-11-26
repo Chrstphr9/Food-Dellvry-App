@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar'
 import LoginPopup from './components/LoginPopup/loginPopup'
 import Verify from './pages/verify/verify'
 import Footer from './components/Footer/Footer'
+import MyOrders from './pages/MyOrders/MyOrders'
 
 
 const App = () => { 
@@ -25,6 +26,7 @@ const App = () => {
           <Route path='/cart' element={<Cart />} /> 
           <Route path='/order' element={<Placeorder />} />
           <Route path='/verify' element={<Verify />} /> 
+          <Route path='/myorders' element={<MyOrders />} /> 
         </Routes>
     </div>
     <Footer />  
