@@ -3,6 +3,7 @@ import "./Placeorder.css"
 import { StoreContext } from '../../context/StoreContext'
 import { useState } from 'react';
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 
 const Placeorder = () => {
@@ -56,10 +57,10 @@ const Placeorder = () => {
   useEffect(() => {
     if (!token) {
         navigate("/cart"); // Redirect if no token is present
-    } else if (getTotalCartAmount === 0) {
+    } else if (getTotalCartAmount() === 0) {
         navigate("/cart"); // Redirect if the cart total is zero
     }
-}, [token, getTotalCartAmount, navigate]);
+}, [token]);
   
 
 
