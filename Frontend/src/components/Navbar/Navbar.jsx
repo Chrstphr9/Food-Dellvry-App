@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext"; // or AuthContext if you have a different context for auth
@@ -7,16 +7,37 @@ import { assets } from "../../assets/assets";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const navigate = useNavigate();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Assume StoreContext or AuthContext provides user info
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext); // or AuthContext if user is managed there
-  
 
   const logout = () => {
-    localStorage.removeItem("token"); 
+    localStorage.removeItem("token");
     setToken("")
     navigate("/")
   }
+
+
+
 
   return (
     <div className="navbar">
@@ -65,18 +86,20 @@ const Navbar = ({ setShowLogin }) => {
           <button onClick={() => setShowLogin(true)}>Sign In</button>
         ) : (
           <div className="nav-profile">
-            <img src={assets.profile_icon} alt="" />
-            <ul className="nav-profile-dropdown">
-              <li onClick={()=>navigate('/myorders')}>
-                <img src={assets.bag_icon} alt="" />
-                <p>Orders</p>
-              </li>
-              <hr />
-              <li onClick={logout}>
-                <img src={assets.logout_icon} alt="" />
-                <p>Logout</p>
-              </li>
-            </ul>
+            <img onClick={toggleDropdown} src={assets.profile_icon} alt="Profile" />
+            {isDropdownOpen && (
+              <ul className="nav-profile-dropdown">
+                <li onClick={() => navigate('/myorders')}>
+                  <img src={assets.bag_icon} alt="Orders" />
+                  <p>Orders</p>
+                </li>
+                <hr />
+                <li onClick={logout}>
+                  <img src={assets.logout_icon} alt="Logout" />
+                  <p>Logout</p>
+                </li>
+              </ul>
+            )}
           </div>
         )}
       </div>
